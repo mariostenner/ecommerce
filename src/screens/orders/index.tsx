@@ -1,11 +1,30 @@
-import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {SafeAreaView} from 'react-native';
+import { TokenPrincipal } from '../../../App';
+import ListComponent from '../../components/list';
+import {GetMyOrders} from '../../utils/network';
 
-const Orders = () => {
+const Orders = ({navigation}) => {
+  const {token} = useContext(TokenPrincipal);
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    getInfo();
+  }, []);
+
+  const getInfo = async () => {
+    try {
+      await GetMyOrders(token).then(response => setOrders(response));
+    } catch (error) {
+      console.log('🚀 ~ file: index.tsx ~ line 17 ~ getInfo ~ error', error);
+    }
+  };
   return (
     <SafeAreaView>
-      <Text>Mario</Text>
-      <Text>Mario</Text>
+      <ListComponent
+        arrayList={orders}
+        screentosee={'OrderDetails'}
+        navigation={navigation}
+      />
     </SafeAreaView>
   );
 };

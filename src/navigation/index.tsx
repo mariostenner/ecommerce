@@ -1,85 +1,42 @@
-import React from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Home from '../screens/home';
-import Products from '../screens/products';
-import Orders from '../screens/orders';
-import Profile from '../screens/profile';
-import Cart from '../screens/cart';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import NavigationSplashLogin from './SplashLogin';
+import NavigationBottom from './NavigationBottom';
+import Login from '../screens/login';
+import Splash from '../screens/splash';
 import {Image} from 'react-native';
+import Cart from '../screens/cart';
+import Home from '../screens/home';
+import Profile from '../screens/profile';
 import tabBottomStyle from '../styles/images/tabBottom';
+import NavigationOrders from './NavigationBottom/NavigationOrders';
+import NavigationProducts from './NavigationBottom/NavigationProducts';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 export default function NavigationManager() {
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName="Home" key={'Home'}>
-        <Tab.Screen
-          name="Products"
-          component={Products}
+      <Stack.Navigator initialRouteName="SplashLogin" key={'ManageNav'}>
+        <Stack.Screen
+          name="SplashLogin"
+          component={NavigationSplashLogin}
           options={{
-            tabBarLabel: 'Products',
-            tabBarIcon: () => (
-              <Image
-                style={tabBottomStyle.icons}
-                source={require('..//assets/images/icons/products.png')}
-              />
-            ),
+            title: 'SplashLogin',
+            headerShown: false,
           }}
         />
-        <Tab.Screen
-          name="Orders"
-          component={Orders}
+        <Stack.Screen
+          name="NavigationBottom"
+          component={NavigationBottom}
           options={{
-            tabBarLabel: 'Orders',
-            tabBarIcon: () => (
-              <Image
-                style={tabBottomStyle.icons}
-                source={require('..//assets/images/icons/orders.png')}
-              />
-            ),
+            title: 'NavigationBottom',
+            headerBackVisible: false,
+            headerShown: false,
           }}
         />
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: () => (
-              <Image
-                style={tabBottomStyle.icons}
-                source={require('..//assets/images/icons/home.png')}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Shopping-Cart"
-          component={Cart}
-          options={{
-            tabBarLabel: 'Cart',
-            tabBarIcon: () => (
-              <Image
-                style={tabBottomStyle.icons}
-                source={require('..//assets/images/icons/cart.png')}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: () => (
-              <Image
-                style={tabBottomStyle.icons}
-                source={require('..//assets/images/icons/profile.png')}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
