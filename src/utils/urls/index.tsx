@@ -7,6 +7,7 @@ export default {
   URL_PRODUCTS: URL_BASE + 'products?IdFabricante=1',
   URL_MYORDERS: URL_BASE + 'monitor/orders-per-customer/50573/maker/1/type/all',
   URL_SHOPPINGCART: URL_BASE + 'shopping-cart',
+  URL_LOGOUT: URL_BASE + 'Usuarios/CerrarSesion',
 
   URL_MS: URL_BRANDS + 'microsoft.png',
   URL_AD: URL_BRANDS + 'autodesk.png',

@@ -7,12 +7,20 @@ import tabBottomStyle from '../../styles/images/tabBottom';
 import NavigationOrders from './NavigationOrders';
 import NavigationProducts from './NavigationProducts';
 import NavigationCart from './NavigationCart';
-import {CartContext} from '../../../App';
+import {CartContext, TokenPrincipal} from '../../../App';
+import CameraViewer from '../../utils/camera';
+import NavigationProfile from './NavigationProfile';
+import { GetOrdersCart } from '../../utils/network';
 
 const Tab = createBottomTabNavigator();
 export default function NavigationBottom() {
-  const {cart}: any = useContext(CartContext);
-  useEffect(() => {}, [cart]);
+  const {cart, setCart}: any = useContext(CartContext);
+  const {token}: any = useContext(TokenPrincipal);
+  useEffect(() => {
+    GetOrdersCart(token).then(response => {
+      setCart(response.length);
+    });
+  }, [cart, setCart, token]);
   return (
     <Tab.Navigator initialRouteName="Home" key={'HomeNav'}>
       <Tab.Screen
@@ -89,7 +97,7 @@ export default function NavigationBottom() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={NavigationProfile}
         options={{
           headerShown: false,
           tabBarLabel: 'Profile',

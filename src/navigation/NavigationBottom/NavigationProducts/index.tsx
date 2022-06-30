@@ -10,7 +10,7 @@ const NavigationProducts = () => {
       <Stack.Screen
         name="ProductsPrincipal"
         component={Products}
-        options={{title: 'Products'}}
+        options={{title: 'Products', headerTitleAlign: 'center'}}
       />
       <Stack.Screen
         name="ProductDetails"

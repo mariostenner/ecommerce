@@ -11,7 +11,7 @@ const NavigationOrders = () => {
       <Stack.Screen
         name="OrdersPrincipal"
         component={Orders}
-        options={{title: 'Orders'}}
+        options={{title: 'Orders', headerTitleAlign: 'center'}}
       />
       <Stack.Screen
         name="OrderDetails"

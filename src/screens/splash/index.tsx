@@ -1,9 +1,14 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Image, SafeAreaView} from 'react-native';
+import {TokenPrincipal} from '../../../App';
 
 const Splash = ({navigation}) => {
+  const {token}: any = useContext(TokenPrincipal);
   setTimeout(() => {
-    navigation.replace('Login');
+    console.log(token);
+    token === ''
+      ? navigation.replace('Login')
+      : navigation.replace('NavigationBottom');
   }, 2000);
   return (
     <SafeAreaView

@@ -37,3 +37,7 @@ export const GetOrdersCart = async (token: any) => {
   return (await axios.get(urls.URL_SHOPPINGCART, {headers: {token: token}}))
     .data.data;
 };
+
+export const GetLogout = async (token: any) => {
+  return (await axios.get(urls.URL_LOGOUT, {headers: {token: token}})).data;
+};

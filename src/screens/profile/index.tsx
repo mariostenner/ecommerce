@@ -1,33 +1,55 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
-  FlatList,
   Image,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
-  Touchable,
   TouchableOpacity,
-  useWindowDimensions,
   View,
 } from 'react-native';
+import { ScreenStackHeaderRightView } from 'react-native-screens';
+import {CartContext, TokenPrincipal} from '../../../App';
 const sizeImageProfile = 300;
+import {ProfileImageContext} from '../../navigation/NavigationBottom/NavigationProfile';
+import {GetLogout} from '../../utils/network';
 
-const Profile = () => {
+const ProfileView = ({navigation}) => {
+  const {token, setToken}: any = useContext(TokenPrincipal);
   const [data, setData] = useState();
+  const {imageuri, setImageuri}: any = useContext(ProfileImageContext);
+  const {cart, setCart}: any = useContext(CartContext);
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [imageuri]);
+
+  const ClearVariables = () => {
+    GetLogout(token);
+    setToken('');
+    setImageuri('');
+    setCart(0);
+  };
 
   return (
     <SafeAreaView>
       <View style={StyleProfileScreen.containerImage}>
-        <Image
-          source={require('../../assets/images/general/myphoto.jpeg')}
-          style={StyleProfileScreen.image}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Camera');
+          }}>
+          <Image
+            resizeMode={'contain'}
+            source={{uri: 'data:image/jpeg;base64,' + imageuri}}
+            style={StyleProfileScreen.image}
+          />
+        </TouchableOpacity>
       </View>
       <Text style={StyleProfileScreen.infoTitle}>JOSE MARIO DERAS STENNER</Text>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          GetLogout(token);
+          setToken('');
+          ClearVariables();
+          navigation.replace('SplashLogin', {screen: 'Login'});
+        }}>
         <Image
           style={StyleProfileScreen.buttonLogout}
           source={require('../../assets/images/icons/logout.png')}
@@ -51,4 +73,4 @@ const StyleProfileScreen = StyleSheet.create({
   buttonLogout: {alignSelf: 'center', marginTop: 90, height: 80, width: 80},
 });
 
-export default Profile;
+export default ProfileView;
