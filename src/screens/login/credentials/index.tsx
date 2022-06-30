@@ -114,6 +114,7 @@ const stylesLogin = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'green',
+    color: 'green',
     fontSize: 25,
   },
   button: {
